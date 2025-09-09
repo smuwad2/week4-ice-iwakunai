@@ -9,21 +9,53 @@
    <h1>Shopping List</h1>
    <p>Get it done today</p>
 
-   <input type="text" id="inputText">
+   <input type="text" id="inputText" placeholder="enter items">
    <!-- add a button here for adding new item -->
-
-   <ul>
-      <li>Notebook<!--<button>Delete</button></li>-->
-      <li>Jello</li>
-      <li>Spinach</li>
-      <li>Rice</li>
-      <li>Birthday Cake</li>
-      <li>Candles</li>
+   <button onclick="addItem()">Enter</button>
+   <ul id="ulShopping">
+      <li>Notebook<button onclick="deleteItem(this.parentNode)">Delete</button></li>
+      <li>Jello<button onclick="deleteItem(this.parentNode)">Delete</button></li>
+      <li>Spinach<button onclick="deleteItem(this.parentNode)">Delete</button></li>
+      <li>Rice<button onclick="deleteItem(this.parentNode)">Delete</button></li>
+      <li>Birthday Cake<button onclick="deleteItem(this.parentNode)">Delete</button></li>
+      <li>Candles<button onclick="deleteItem(this.parentNode)">Delete</button></li>
    </ul>
 
    <script>
 
       // add code here
+      function processUl() {
+
+      }
+
+      function addItem() {
+         const inputField = document.getElementById("inputText")
+         const inputText = inputField.value;
+
+         const ulNode = document.getElementById("ulShopping");
+         if (inputText.length > 0) {
+            const liNode = document.createElement("li");
+            liNode.id = "li" + ulNode.childElementCount;
+
+            const liText = document.createTextNode(inputText);
+            liNode.appendChild(liText);
+
+            const liButton = document.createElement("button");
+            liButton.addEventListener("click", 
+            function(){
+                deleteItem(this.parentNode);});
+            liButton.textContent = "Delete";
+            liNode.appendChild(liButton);
+
+            ulNode.appendChild(liNode);
+         }
+         inputField.value = "";
+      }
+
+      function deleteItem(obj) {
+         obj.remove();
+      }
+
 
    </script>
 
